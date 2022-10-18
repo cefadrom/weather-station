@@ -1,9 +1,12 @@
 #include <Arduino.h>
 
 
+#define CONFIG_CHECKUP_BYTE 123
+
+
 typedef struct Config {
     // Checkup bytes to see if the config is valid
-    byte checkup = 123;
+    byte checkup = CONFIG_CHECKUP_BYTE;
     // Luminosity sensor
     byte LUMIN = 1;                  // 0 or 1
     unsigned short LUMIN_LOW = 255;  // 0 to 1023

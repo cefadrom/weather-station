@@ -9,7 +9,7 @@ extern Config config;
 // Load the configuration from the EEPROM
 void loadConfig() {
     EEPROM.get(0, config);
-    if (config.checkup != 123) {
+    if (config.checkup != CONFIG_CHECKUP_BYTE) {
         resetConfig();
     }
 }

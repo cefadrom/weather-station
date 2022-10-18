@@ -10,7 +10,7 @@
 extern Components components;
 
 
-void initSensors() {
+void initComponents() {
     // Initialize the LEDs using malloc
     ChainableLED leds(LED_PIN, LED_PIN + 1, LED_COUNT);
     components.leds = &leds;

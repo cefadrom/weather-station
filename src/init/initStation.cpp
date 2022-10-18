@@ -1,9 +1,9 @@
 #include "config/config.hpp"
-#include "sensors/initSensors.hpp"
+#include "components/initComponents.hpp"
 #include <Arduino.h>
 
 
 void initStation() {
     loadConfig();
-    initSensors();
+    initComponents();
 }

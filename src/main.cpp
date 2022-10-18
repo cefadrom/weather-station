@@ -1,4 +1,3 @@
-#include "config/config.hpp"
 #include "init/initStation.hpp"
 #include "structs/structs.hpp"
 

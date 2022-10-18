@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <ChainableLED.h>
 
 
 #define CONFIG_CHECKUP_BYTE 123
@@ -30,5 +31,6 @@ typedef struct SystemState {
 } SystemState;
 
 
-typedef struct Sensors {
-} Sensors;
+typedef struct Components {
+    ChainableLED *leds;
+} Components;

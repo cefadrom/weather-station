@@ -4,6 +4,7 @@
 
 
 Config config;
+Components components;
 
 
 void setup() {

@@ -1,9 +1,15 @@
-#include <Arduino.h>
+#include "config/config.hpp"
+#include "init/initStation.hpp"
+#include "structs/structs.hpp"
+
+
+Config config;
+
 
 void setup() {
-  // put your setup code here, to run once:
+    // Initialize the station
+    initStation();
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-}
+
+void loop() {}

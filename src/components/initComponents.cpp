@@ -12,8 +12,12 @@ extern SystemState systemState;
 
 
 void initComponents() {
-    // Initialize the LEDs using malloc
+    // LED
     ChainableLED leds(LED_PIN, LED_PIN + 1, LED_COUNT);
     leds.setColorRGB(0, systemState.ledColor1[0], systemState.ledColor1[1], systemState.ledColor1[2]);
     components.leds = &leds;
+
+    // Buttons
+    pinMode(RED_BUTTON_PIN, INPUT);
+    pinMode(GREEN_BUTTON_PIN, INPUT);
 }

@@ -1,4 +1,5 @@
 #include "structs/structs.hpp"
+#include "utils/debug.h"
 #include <Arduino.h>
 
 
@@ -39,13 +40,41 @@ ISR(TIMER1_COMPA_vect) {
         systemState.greenButtonPushCount = 0;
     }
 
+    bool redPushed = false, greenPushed = false;
+
     if (systemState.redButtonPushCount >= 5) {
-        Serial.println("red button pushed");
+        redPushed = true;
         systemState.redButtonPushCount = 0;
     }
     if (systemState.greenButtonPushCount >= 5) {
-        Serial.println("green button pushed");
+        greenPushed = true;
         systemState.greenButtonPushCount = 0;
+    }
+
+    // Swtich from standart to eco mode
+    if (greenPushed && !redPushed && systemState.currentMode == 1) {
+        systemState.currentMode = 2;
+        #ifdef DEBUG
+            Serial.println("Switching to eco mode");
+        #endif
+    } else if (greenPushed && !redPushed && systemState.currentMode == 2) {
+        systemState.currentMode = 1;
+        #ifdef DEBUG
+            Serial.println("Switching to standart mode");
+        #endif
+    }
+
+    // Switch from standart and eco to maintenance mode
+    if (!greenPushed && redPushed && (systemState.currentMode == 1 || systemState.currentMode == 2)) {
+        systemState.currentMode = 4;
+        #ifdef DEBUG
+            Serial.println("Switching to maintenance mode");
+        #endif
+    } else if (!greenPushed && redPushed && systemState.currentMode == 4) {
+        systemState.currentMode = systemState.isEco ? 2 : 1;
+        #ifdef DEBUG
+            Serial.println("Switching to standart mode");
+        #endif
     }
 
     // LEDs
@@ -68,8 +97,7 @@ ISR(TIMER1_COMPA_vect) {
                                          systemState.ledColor2[2]);
         }
         // Increment the counter and reset it if it's too high
-        systemState.blinkCounter =
-            (systemState.blinkCounter + 1) % (systemState.blinkMode + 1);
+        systemState.blinkCounter = (systemState.blinkCounter + 1) % (systemState.blinkMode + 1);
         break;
     }
 }

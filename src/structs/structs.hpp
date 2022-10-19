@@ -5,6 +5,7 @@
 #define CONFIG_CHECKUP_BYTE 123
 #define RED_BUTTON_PIN 3
 #define GREEN_BUTTON_PIN 2
+#define BAUD_RATE 115200
 
 
 typedef struct Config {
@@ -26,6 +27,8 @@ typedef struct Config {
     byte PRESSURE = 1;                  // 0 or 1
     unsigned short PRESSURE_MIN = 850;  // 300 to 1100
     unsigned short PRESSURE_MAX = 1080; // 300 to 1100
+    // Measures interval
+    unsigned int LOG_INTERVAL = 10; // in seconds
 } Config;
 
 
@@ -33,6 +36,7 @@ typedef struct SystemState {
     // Functionning state
     byte currentMode = 0; // 0 for init ; 1 for standart ; 2 for eco ; 3 for
                           // config ; 4 for maintenance
+    bool isEco = false;
     // Buttons
     byte redButtonPushCount = 0;
     byte greenButtonPushCount = 0;

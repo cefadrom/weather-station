@@ -4,6 +4,7 @@
 
 extern Config config;
 extern Components components;
+extern SystemState systemState;
 
 
 void startClock() {
@@ -25,11 +26,50 @@ void startClock() {
 
 
 ISR(TIMER1_COMPA_vect) {
-    // Blibk the LED
-    static bool ledState = false;
-    if (ledState)
-        components.leds->setColorRGB(0, 255, 0, 0);
-    else
-        components.leds->setColorRGB(0, 0, 0, 255);
-    ledState = !ledState;
+    // Buttons
+    if (digitalRead(RED_BUTTON_PIN) == LOW) {
+        systemState.redButtonPushCount++;
+    } else {
+        systemState.redButtonPushCount = 0;
+    }
+
+    if (digitalRead(GREEN_BUTTON_PIN) == LOW) {
+        systemState.greenButtonPushCount++;
+    } else {
+        systemState.greenButtonPushCount = 0;
+    }
+
+    if (systemState.redButtonPushCount >= 5) {
+        Serial.println("red button pushed");
+        systemState.redButtonPushCount = 0;
+    }
+    if (systemState.greenButtonPushCount >= 5) {
+        Serial.println("green button pushed");
+        systemState.greenButtonPushCount = 0;
+    }
+
+    // LEDs
+    switch (systemState.blinkMode) {
+    case 0:
+        components.leds->setColorRGB(0, systemState.ledColor1[0],
+                                     systemState.ledColor1[1],
+                                     systemState.ledColor1[2]);
+        break;
+
+    case 1:
+    case 2:
+        if (systemState.blinkCounter == 0) {
+            components.leds->setColorRGB(0, systemState.ledColor1[0],
+                                         systemState.ledColor1[1],
+                                         systemState.ledColor1[2]);
+        } else {
+            components.leds->setColorRGB(0, systemState.ledColor2[0],
+                                         systemState.ledColor2[1],
+                                         systemState.ledColor2[2]);
+        }
+        // Increment the counter and reset it if it's too high
+        systemState.blinkCounter =
+            (systemState.blinkCounter + 1) % (systemState.blinkMode + 1);
+        break;
+    }
 }

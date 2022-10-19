@@ -4,6 +4,7 @@
 
 Config config;
 Components components;
+SystemState systemState;
 
 
 void setup() {

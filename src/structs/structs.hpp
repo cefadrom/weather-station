@@ -3,6 +3,8 @@
 
 
 #define CONFIG_CHECKUP_BYTE 123
+#define RED_BUTTON_PIN 3
+#define GREEN_BUTTON_PIN 2
 
 
 typedef struct Config {
@@ -28,6 +30,18 @@ typedef struct Config {
 
 
 typedef struct SystemState {
+    // Functionning state
+    byte currentMode = 0; // 0 for init ; 1 for standart ; 2 for eco ; 3 for
+                          // config ; 4 for maintenance
+    // Buttons
+    byte redButtonPushCount = 0;
+    byte greenButtonPushCount = 0;
+    // LEDs
+    byte ledColor1[3] = {0, 0, 0};
+    byte ledColor2[3] = {0, 0, 0};
+    byte blinkMode = 0; // 0 for continious, 1 for blink at equal time, 2 for
+                        // the second color to be twice as long
+    byte blinkCounter = 0;
 } SystemState;
 
 

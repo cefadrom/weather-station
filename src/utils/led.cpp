@@ -2,6 +2,7 @@
 #include "structs/structs.hpp"
 
 
+extern Components components;
 extern SystemState systemState;
 
 
@@ -9,6 +10,7 @@ void setLeds1(byte r, byte g, byte b) {
     systemState.ledColor1[0] = r;
     systemState.ledColor1[1] = g;
     systemState.ledColor1[2] = b;
+    components.leds->setColorRGB(0, r, g, b);
 }
 
 

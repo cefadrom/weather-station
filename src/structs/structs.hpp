@@ -27,8 +27,10 @@ typedef struct Config {
     byte PRESSURE = 1;                  // 0 or 1
     unsigned short PRESSURE_MIN = 850;  // 300 to 1100
     unsigned short PRESSURE_MAX = 1080; // 300 to 1100
-    // Measures interval
-    unsigned int LOG_INTERVAL = 10; // in seconds
+    // Measures
+    unsigned int LOG_INTERVAL = 10;    // in seconds
+    unsigned int TIMEOUT = 30;         // in seconds
+    unsigned int MAX_FILE_SIZE = 4096; // in bytes
 } Config;
 
 

@@ -2,6 +2,7 @@
 #include "utils/led.hpp"
 #include "utils/wait.hpp"
 #include "utils/debug.h"
+#include "components/runMeasurements.hpp"
 #include <Arduino.h>
 
 
@@ -21,7 +22,16 @@ void runMaintenanceMode() {
 
     // Main mode loop
     while (systemState.currentMode == 4) {
-        Serial.println("TODO: Get measures");
+        SensorMeasures data;
+        runMeasurements(&data);
+        Serial.println("----- MEASUREMENTS -----");
+        Serial.println("Temperature: " + data.temp);
+        Serial.println("Pressure: " + data.press);
+        Serial.println("Altitude: " + data.alt);
+        Serial.println("Humidity: " + data.hum);
+        Serial.println("Latitude: " + data.GPS.latitude);
+        Serial.println("Longitude: " + data.GPS.longitude);
+        Serial.println("Light level: " + data.lightlevel);
         wait(2, []() { return systemState.currentMode == 4; });
     }
 

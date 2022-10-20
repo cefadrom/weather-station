@@ -1,11 +1,18 @@
+// #include <Adafruit_BME280.h>
 #include <Arduino.h>
 #include <ChainableLED.h>
+// #include <DS1307.h>
+// #include <SD.h>
+// #include <SoftwareSerial.h>
 
+#ifndef MY_HEADER_FILE
+#define MY_HEADER_FILE
 
 #define CONFIG_CHECKUP_BYTE 123
 #define RED_BUTTON_PIN 3
 #define GREEN_BUTTON_PIN 2
 #define BAUD_RATE 115200
+#define LIGHT_SENSOR_PIN A0
 
 
 typedef struct Config {
@@ -53,4 +60,27 @@ typedef struct SystemState {
 
 typedef struct Components {
     ChainableLED *leds;
+    // DS1307 *clock;
+    // File *storageSD;
+    // Adafruit_BME280 *BME;
+    // SoftwareSerial *GPS;
 } Components;
+
+
+typedef struct SensorMeasures {
+    struct GPS {
+        String latitude = "Na";
+        String longitude = "Na";
+    } GPS;
+
+    String temp = "Na";
+    String press = "Na";
+    String alt = "Na";
+    String hum = "Na";
+
+    String lightlevel = "Na";
+
+    String time = "Na";
+} SensorMeasures;
+
+#endif

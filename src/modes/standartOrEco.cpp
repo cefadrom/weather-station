@@ -13,7 +13,6 @@ extern SystemState systemState;
 bool standartOrEcoModeShouldContinue() {
     // Weird workaround to not skip the execution
     delay(10);
-    // Serial.println("Eco: " + String(isEco) + ", mode: " + String(systemState.currentMode) + ", result: " + String((isEco && systemState.currentMode == 2) || (!isEco && systemState.currentMode == 1)));
     return (systemState.isEco && systemState.currentMode == 2) ||
            (!systemState.isEco && systemState.currentMode == 1);
 }

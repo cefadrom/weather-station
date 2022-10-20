@@ -26,7 +26,7 @@ void runStandartOrEcoMode(bool isEco) {
 
     // Set the LED
     if (isEco)
-        setContiniousLed(RED);
+        setContiniousLed(BLUE);
     else
         setContiniousLed(GREEN);
 
@@ -40,7 +40,6 @@ void runStandartOrEcoMode(bool isEco) {
         wait(waitDelay, []() { return checkIfModeShouldContinue(true); });
         Serial.println("TODO: Get measures");
     }
-
 
     #ifdef DEBUG
         Serial.println(String(isEco ? "Eco" : "Standart") + " mode is done");

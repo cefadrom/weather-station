@@ -10,11 +10,12 @@ extern Components components;
 extern SystemState systemState;
 
 
-bool checkIfModeShouldContinue(bool isEco) {
+bool standartOrEcoModeShouldContinue() {
     // Weird workaround to not skip the execution
     delay(10);
-    return (isEco && systemState.currentMode == 2) ||
-           (!isEco && systemState.currentMode == 1);
+    // Serial.println("Eco: " + String(isEco) + ", mode: " + String(systemState.currentMode) + ", result: " + String((isEco && systemState.currentMode == 2) || (!isEco && systemState.currentMode == 1)));
+    return (systemState.isEco && systemState.currentMode == 2) ||
+           (!systemState.isEco && systemState.currentMode == 1);
 }
 
 
@@ -35,9 +36,9 @@ void runStandartOrEcoMode(bool isEco) {
     unsigned int waitDelay = isEco ? config.LOG_INTERVAL * 2 : config.LOG_INTERVAL;
 
     // Main mode loop
-    while (checkIfModeShouldContinue(isEco)) {
+    while (standartOrEcoModeShouldContinue()) {
         // TODO: measures
-        wait(waitDelay, []() { return checkIfModeShouldContinue(true); });
+        wait(waitDelay, standartOrEcoModeShouldContinue);
         Serial.println("TODO: Get measures");
     }
 

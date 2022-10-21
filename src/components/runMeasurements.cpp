@@ -4,9 +4,6 @@
 #include "structs/structs.hpp"
 
 
-Config config;
-
-
 void runMeasurements(SensorMeasures *data) {
     // Measure the GPS
     measureGPS(data);
@@ -15,6 +12,5 @@ void runMeasurements(SensorMeasures *data) {
     measureBME(data);
 
     // Measure the light level
-    if (config.LUMIN)
-        measureLight(data);
+    measureLight(data);
 }
